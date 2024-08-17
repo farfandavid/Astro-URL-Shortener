@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: ${BD_PASSWORD}
+      MYSQL_DATABASE: ${BD_NAME}
+      MYSQL_USER: ${BD_USER}
+      MYSQL_PASSWORD: ${BD_PASSWORD}
+    ports:
+      - "${BD_PORT}:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
